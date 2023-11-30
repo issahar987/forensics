@@ -1,1 +1,4 @@
 python-dotenv==1.0.0
+requests==2.31.0
+pathlib==1.0.1
+malwarebazaar==0.2.4
