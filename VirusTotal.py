@@ -53,7 +53,7 @@ class VTscan():
             file_size = file_path.stat().st_size
             if file_size <= 32 * 1024 * 1024:
                 print(f"file size: {file_size}B")
-                files = {"file": (file_path.name, file_path.open('rb'))}
+                files = {"file": (file_path.name, file_path.open('rb'), 'application/zip')}
                 response = requests.post("https://www.virustotal.com/api/v3/files", files=files, headers=self.headers)
             else:
                 print(f"file size: {file_size}B")
