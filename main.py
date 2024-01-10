@@ -1,6 +1,9 @@
 from VirusTotal import VTscan
 from malwareb import download_file_from_malwarebazaar
 from pathlib import Path
+from PythonScriptsAnalysis import deobfuscate_pyarmor
+from PythonScriptsAnalysis import analyze_python_code
+
 
 eicar_test = "https://secure.eicar.org/eicar.com.txt"
 zipped_malware = "https://bazaar.abuse.ch/sample/298bda6934276760168fae06a92b2f71e51368e6c9356ee693f5bf3982d00d77/"
@@ -18,6 +21,22 @@ downloaded_file_path_unzipped = Path('/tmp/filetoscan_unzipped')
 # Download the file from the URL
 # vt.download_file(url_to_download, downloaded_file_path)
 download_file_from_malwarebazaar(url_to_download, downloaded_file_path, downloaded_file_path_unzipped)
+
+# Path to the script to be syntactically analysed
+script_path_to_analyze = downloaded_file_path_unzipped
+
+# Syntactic analysis of the script
+analyze_python_code(script_path_to_analyze)
+
+
+# Path to the file with the obfuscated script
+obfuscated_file_path = downloaded_file_path_unzipped
+
+# Path to the file where the deobfuscated script will be saved
+deobfuscated_file_path = '/tmp/deobfuscated_file.py'
+
+# Deobfuscation of the script before sending it for scanning
+deobfuscate_pyarmor(obfuscated_file_path, deobfuscated_file_path)
 
 # Submit the downloaded file for scanning
 if downloaded_file_path.exists():
