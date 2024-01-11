@@ -1,9 +1,10 @@
 import subprocess
 import ast
+from pathlib import Path
 
 def deobfuscate_pyarmor(obfuscated_file, deobfuscated_file):
     # Ścieżka do narzędzia PyArmorDeobfuscator.py
-    pyarmor_deobfuscator_path = 'path/to/PyArmorDeobfuscator.py'
+    pyarmor_deobfuscator_path = Path(__file__).parent / 'PyArmorDeobfuscator.py'
 
     # Uruchomienie narzędzia PyArmorDeobfuscator.py
     command = [

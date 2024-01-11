@@ -1,4 +1,7 @@
-import argparse,sys,os,uncompyle6,py_compile
+import argparse
+import os
+import uncompyle6
+import py_compile
 
 def find_pytransform__init__file(file): # please make sure you have _pytransform.dll and __init__.py in /dist/pytransform/ directory !!!
 	if os.path.isfile(file):
@@ -16,12 +19,12 @@ parser.add_argument('-f', required=True, default=None, help='Add the Armor file 
 parser.add_argument('-o', required=True, default=None, help='Add the Output file [ex: deobfuscated.py]')
 args = vars(parser.parse_args())
 result = find_pytransform__init__file(args['f'])
+
 if result == "True":
 	# Compile to Byte Code
 	# https://docs.python.org/2/library/py_compile.html
 	# https://docs.python.org/3/library/py_compile.html
 	py_compile.compile(args['f'])
-	
 	with open(args['o'], 'w') as output:
 		# decompile the bytecode file using uncompyle6
 		# https://pypi.org/project/uncompyle6/
