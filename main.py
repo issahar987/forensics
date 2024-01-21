@@ -1,4 +1,5 @@
 from VirusTotal import VTscan
+from ClamAV import clamAV_file_scan
 from malwareb import download_file_from_malwarebazaar
 from pathlib import Path
 from PythonScriptsAnalysis import deobfuscate_pyarmor
@@ -14,7 +15,7 @@ python_file_url = "https://raw.githubusercontent.com/spicesouls/Malware-Dump/mai
 vt = VTscan()
 
 # url to download
-url_to_download = python_file_url
+url_to_download = url_test
 # Path to the script to be syntactically analysed
 script_path_to_analyze = current_folder / 'downloads' / 'file_to_scan'
 
@@ -22,15 +23,15 @@ script_path_to_analyze = current_folder / 'downloads' / 'file_to_scan'
 vt.download_file(url_to_download, script_path_to_analyze)
 
 # Syntactic analysis of the script
-analyze_python_code(script_path_to_analyze)
+# analyze_python_code(script_path_to_analyze)
 
 # Path to the file with the obfuscated script
-obfuscated_file_path = script_path_to_analyze
-# Path to the file where the deobfuscated script will be saved
-deobfuscated_file_path = current_folder / 'downloads' / 'deobfuscated_file.py'
+# obfuscated_file_path = script_path_to_analyze
+# # Path to the file where the deobfuscated script will be saved
+# deobfuscated_file_path = current_folder / 'downloads' / 'deobfuscated_file.py'
 
-# Deobfuscation of the script before sending it for scanning
-deobfuscate_pyarmor(obfuscated_file_path, deobfuscated_file_path)
+# # Deobfuscation of the script before sending it for scanning
+# deobfuscate_pyarmor(obfuscated_file_path, deobfuscated_file_path)
 
 # Submit the downloaded file for scanning
 if script_path_to_analyze.exists():
@@ -40,6 +41,8 @@ if script_path_to_analyze.exists():
     print("Virus Total Stats Data:")
     for key, value in stats_data.items():
         print(f"{key}: {value}")
+
+clamAV_file_scan(script_path_to_analyze)
 
 # Delete the downloaded file after scanning
 # vt.delete_file(script_path_to_analyze)

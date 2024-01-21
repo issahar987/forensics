@@ -1,6 +1,7 @@
 import subprocess
 import ast
 from pathlib import Path
+import json
 
 def deobfuscate_pyarmor(obfuscated_file, deobfuscated_file):
     # Ścieżka do narzędzia PyArmorDeobfuscator.py
@@ -23,6 +24,12 @@ def deobfuscate_pyarmor(obfuscated_file, deobfuscated_file):
 
 
 def analyze_python_code(script_path):
+    ast_results = {
+        'functions': [],
+        'assignments': [],
+        'imports': [],
+        'imports_from': []
+    }
     with open(script_path, 'r') as file:
         source_code = file.read()
 
@@ -38,21 +45,42 @@ def analyze_python_code(script_path):
             # Analiza argumentów funkcji
             arguments = [arg.arg for arg in node.args.args]
             print(f"  Argumenty: {', '.join(arguments)}")
+            function_info = {
+                'name': node.name,
+                'lines': f"{node.lineno}-{node.end_lineno}",
+                'arguments': [arg.arg for arg in node.args.args]
+            }
+            ast_results['functions'].append(function_info)
 
         elif isinstance(node, ast.Assign):
             print("Znaleziono przypisanie wartości:")
             for target in node.targets:
                 if isinstance(target, ast.Name):
                     print(f"  Zmienna: {target.id}")
+            assignment_info = {
+                'targets': [target.id for target in node.targets]
+            }
+            ast_results['assignments'].append(assignment_info)
 
         elif isinstance(node, ast.Import):
             print("Znaleziono import:")
             for alias in node.names:
                 print(f"  Moduł: {alias.name}")
+            import_info = {
+                'modules': [alias.name for alias in node.names]
+            }
+            ast_results['imports'].append(import_info)
 
         elif isinstance(node, ast.ImportFrom):
             print("Znaleziono import z modułu:")
             print(f"  Moduł: {node.module}")
             for alias in node.names:
                 print(f"  Element: {alias.name}")
+            import_from_info = {
+                'module': node.module,
+                'elements': [alias.name for alias in node.names]
+            }
+            ast_results['imports_from'].append(import_from_info)
+    with open(Path(__file__).parent / 'downloads' / 'result_AST.json', 'w') as ast_json_file:
+            json.dump(ast_results, ast_json_file, indent=4)
 

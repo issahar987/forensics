@@ -6,6 +6,7 @@ import py_compile
 def find_pytransform__init__file(file): # please make sure you have _pytransform.dll and __init__.py in /dist/pytransform/ directory !!!
 	if os.path.isfile(file):
 		dir = os.path.dirname(os.path.realpath(file))
+		print(dir)
 		if os.path.isfile(dir + '/dist/pytransform/_pytransform.dll'):
 			if os.path.isfile(dir + '/dist/pytransform/__init__.py'):
 				return "True"

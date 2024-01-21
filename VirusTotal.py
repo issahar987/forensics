@@ -35,6 +35,7 @@ class VTscan():
         else:
             print(f"Failed to download file from the URL: {url}")
             return None
+
     def delete_file(self, file_path):
         try:
             # Delete the specified file
@@ -42,6 +43,7 @@ class VTscan():
             print(f"File {file_path} deleted successfully.")
         except OSError as e:
             print(f"Error deleting the file: {e}")
+
     def submit_file_for_scan(self, file_path, password=None):
         # Check if the file is a zip file and handle it accordingly
         if file_path.suffix.lower() == '.zip' and password:
