@@ -1,9 +1,10 @@
 import magic
 from pathlib import Path
-from VirusTotal import VTscan
-from ClamAV import clamAV_file_scan
 from time import sleep
-from PythonScriptsAnalysis import analyze_python_code
+
+from Utils.VirusTotal import VTscan
+from Utils.ClamAV import clamAV_file_scan
+from Utils.PythonScriptsAnalysis import analyze_python_code
 
 
 # Path to the script to be syntactically analysed

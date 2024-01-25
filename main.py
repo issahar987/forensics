@@ -1,6 +1,6 @@
 from Utils.VirusTotal import VTscan
 from Utils.ClamAV import clamAV_file_scan
-from Utils.malwareb import download_file_from_malwarebazaar
+# from Utils.malwareb import download_file_from_malwarebazaar
 from pathlib import Path
 from Utils.PythonScriptsAnalysis import deobfuscate_pyarmor
 from Utils.PythonScriptsAnalysis import analyze_python_code

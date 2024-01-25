@@ -17,3 +17,6 @@ Start by:
 # Install ClamAVDaemon
 ### apt -y install clamav
 ### apt install -y clamav-daemon
+
+# 5. Run Backend
+### uvicorn backend:app --host 0.0.0.0 --port 8000 --reload
