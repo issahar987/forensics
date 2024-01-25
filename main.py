@@ -17,7 +17,10 @@ vt = VTscan()
 # url to download
 url_to_download = url_test
 # Path to the script to be syntactically analysed
-script_path_to_analyze = current_folder / 'downloads' / 'file_to_scan'
+download_folder_path = current_folder / 'downloads'
+if not download_folder_path.exists():
+    download_folder_path.mkdir(parents=True)
+script_path_to_analyze = download_folder_path / 'file_to_scan'
 
 # Download the file from the URL
 vt.download_file(url_to_download, script_path_to_analyze)
