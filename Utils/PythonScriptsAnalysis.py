@@ -81,6 +81,7 @@ def analyze_python_code(script_path):
                 'elements': [alias.name for alias in node.names]
             }
             ast_results['imports_from'].append(import_from_info)
-    with open(Path(__file__).parent / 'downloads' / 'result_AST.json', 'w') as ast_json_file:
-            json.dump(ast_results, ast_json_file, indent=4)
+    # with open(Path(__file__).parent / 'downloads' / 'result_AST.json', 'w') as ast_json_file:
+    #         json.dump(ast_results, ast_json_file, indent=4)
+    return ast_results
 
