@@ -1,9 +1,9 @@
-from VirusTotal import VTscan
-from ClamAV import clamAV_file_scan
-from malwareb import download_file_from_malwarebazaar
+from Utils.VirusTotal import VTscan
+from Utils.ClamAV import clamAV_file_scan
+from Utils.malwareb import download_file_from_malwarebazaar
 from pathlib import Path
-from PythonScriptsAnalysis import deobfuscate_pyarmor
-from PythonScriptsAnalysis import analyze_python_code
+from Utils.PythonScriptsAnalysis import deobfuscate_pyarmor
+from Utils.PythonScriptsAnalysis import analyze_python_code
 
 current_folder = Path(__file__).parent
 
