@@ -19,15 +19,13 @@ def clamAV_file_scan(file_path: pathlib.Path) -> None:
             print(f'The file {file_path_str} is safe.')
         else:
             print(f'The file {file_path_str} is potentially unsafe! Scan result: {scan_result[file_path_str]}')
-
         # Save the scan results to a JSON file
-        result_data = {
+        return {
             'scan_result': scan_result[file_path_str]
         }
-        return result_data
         # with open(Path(__file__).parent / 'downloads' / 'result_clamAV.json', 'w') as json_file:
         #     json.dump(result_data, json_file, indent=4)
-
-        print("Scan results saved to 'result_clamAV.json'")
+        # print("Scan results saved to 'result_clamAV.json'")
     except pyclamd.ConnectionError:
         print('Error connecting to the ClamAV daemon.')
+        return {'scan_result': 'Error connecting to the ClamAV daemon.'}
