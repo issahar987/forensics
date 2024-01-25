@@ -14,4 +14,6 @@ Start by:
 # 4. Install requirements
 ### pip install -r requirements.txt
 
-### Install ClamAVDaemon
+# Install ClamAVDaemon
+### apt -y install clamav
+### apt install -y clamav-daemon
