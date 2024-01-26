@@ -28,13 +28,13 @@ def remove_unused_code(node, script_lines):
     if isinstance(node, ast.Expr):
         script_lines[node.lineno - 1] = "# Removed: " + script_lines[node.lineno - 1]
 
-
 def expand_function_shortcuts(node, script_lines):
     if isinstance(node, ast.FunctionDef):
-        for decorator in node.decorator_list:
-            if isinstance(decorator, ast.Name) and decorator.id == 'some_decorator':
-                node.name = f"{node.name}_full"
 
+        original_name = node.name
+        node.name = f"{node.name}_full"
+        line_number = node.lineno - 1
+        script_lines[line_number] = script_lines[line_number].replace(f"def {original_name}(", f"def {node.name}(")
 
 def deobfuscate_python_code(script_path, output_path):
     with open(script_path, 'r') as file:
@@ -45,8 +45,8 @@ def deobfuscate_python_code(script_path, output_path):
     for node in ast.walk(tree):
         expand_shortcuts(node, script_lines)
         expand_assign_aliases(node, script_lines)
-        remove_unused_code(node, script_lines)
         expand_function_shortcuts(node, script_lines)
+        remove_unused_code(node, script_lines)
 
     with open(output_path, 'w') as output_file:
         output_file.writelines(script_lines)
